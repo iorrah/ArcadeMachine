@@ -72,32 +72,9 @@ struct ContentView: View {
                 
                 // Cards
                 HStack {
-                    Image(self.symbols[self.numbers[0]])
-                    .renderingMode(.original)
-                    .resizable()
-                    .frame(width: 100.0, height: 100.0)
-                    .padding(10)
-                    .background(Color.white.opacity(0.5))
-                    .cornerRadius(20)
-                    .shadow(color: /*@START_MENU_TOKEN@*/Color.gray/*@END_MENU_TOKEN@*/, radius: 3)
-                    
-                    Image(self.symbols[self.numbers[1]])
-                    .renderingMode(.original)
-                    .resizable()
-                    .frame(width: 100.0, height: 100.0)
-                    .padding(10)
-                    .background(Color.white.opacity(0.5))
-                    .cornerRadius(20)
-                    .shadow(color: Color.gray, radius: 3)
-                    
-                    Image(self.symbols[self.numbers[2]])
-                    .renderingMode(.original)
-                    .resizable()
-                    .frame(width: 100.0, height: 100.0)
-                    .padding(10)
-                    .background(Color.white.opacity(0.5))
-                    .cornerRadius(20)
-                    .shadow(color: /*@START_MENU_TOKEN@*/Color.gray/*@END_MENU_TOKEN@*/, radius: 3)
+                    CardView(symbol: $symbols[numbers[0]])
+                    CardView(symbol: $symbols[numbers[1]])
+                    CardView(symbol: $symbols[numbers[2]])
                 }
                 
                 Spacer()
@@ -109,9 +86,7 @@ struct ContentView: View {
                     
                     // Shufle the images
                     self.numbers[0] = Int.random(in: 0...self.symbols.count - 1)
-                    
                     self.numbers[1] = Int.random(in: 0...self.symbols.count - 1)
-                    
                     self.numbers[2] = Int.random(in: 0...self.symbols.count - 1)
                     
                     // Check winnings
