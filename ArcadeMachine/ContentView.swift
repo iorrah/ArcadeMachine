@@ -55,7 +55,7 @@ struct ContentView: View {
                     
                     if self.won {
                     HStack {
-                        Text("+ " + String(self.bet) + " credits!")
+                        Text("+" + String(self.bet) + "!")
                             .bold()
                             .foregroundColor(.black)
                         
@@ -69,14 +69,13 @@ struct ContentView: View {
                 .background(Color.white.opacity(0.5))
                 .cornerRadius(20)
 
-                
                 Spacer()
                 
                 // Cards
                 HStack {
-                    CardView(symbol: $symbols[numbers[0]], background: $background)
-                    CardView(symbol: $symbols[numbers[1]], background: $background)
-                    CardView(symbol: $symbols[numbers[2]], background: $background)
+                    ForEach(numbers.indices) { index in
+                        CardView(symbol: $symbols[numbers[index]], background: $background)
+                    }
                 }
                 
                 Spacer()
@@ -87,9 +86,9 @@ struct ContentView: View {
                     self.credits += 1
                     
                     // Shufle the images
-                    self.numbers[0] = Int.random(in: 0...self.symbols.count - 1)
-                    self.numbers[1] = Int.random(in: 0...self.symbols.count - 1)
-                    self.numbers[2] = Int.random(in: 0...self.symbols.count - 1)
+                    self.numbers = self.numbers.map({ _ in
+                        Int.random(in: 0...self.symbols.count - 1)
+                    })
                     
                     // Check winnings
                     if self.numbers[0] == self.numbers[1] && self.numbers[1] == self.numbers[2] {
