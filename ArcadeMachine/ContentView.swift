@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var numbers = [0, 0, 0]
     @State private var bet = 5
     @State private var won = false
+    @State private var background = Color.white
     
     var body: some View {
         ZStack {
@@ -48,33 +49,34 @@ struct ContentView: View {
                 
                 // Creadits
                 
-                VStack {
+                HStack {
+                    Text("Credits: " + String(self.credits))
+                        .foregroundColor(.black)
+                    
+                    if self.won {
                     HStack {
-                        Image(systemName: "checkmark.seal.fill")
-                            .foregroundColor(.green)
-                        
-                        Text("You won!")
+                        Text("+ " + String(self.bet) + " credits!")
                             .bold()
                             .foregroundColor(.black)
                         
                         Image(systemName: "checkmark.seal.fill")
                             .foregroundColor(.green)
-                    }.opacity(self.won ? 1 : 0)
+                    }
+                    }
                     
-                    Text("Credits: " + String(self.credits))
-                        .foregroundColor(.black)
-                        .padding(.all, 10)
-                        .background(Color.white.opacity(0.5))
-                        .cornerRadius(20)
-                }
+                    }
+                .padding(.all, 10)
+                .background(Color.white.opacity(0.5))
+                .cornerRadius(20)
+
                 
                 Spacer()
                 
                 // Cards
                 HStack {
-                    CardView(symbol: $symbols[numbers[0]])
-                    CardView(symbol: $symbols[numbers[1]])
-                    CardView(symbol: $symbols[numbers[2]])
+                    CardView(symbol: $symbols[numbers[0]], background: $background)
+                    CardView(symbol: $symbols[numbers[1]], background: $background)
+                    CardView(symbol: $symbols[numbers[2]], background: $background)
                 }
                 
                 Spacer()
@@ -94,10 +96,12 @@ struct ContentView: View {
                         // Won
                         self.won = true
                         self.credits += self.bet * 10
+                        self.background = Color.green
                     } else {
                         // Lost
                         self.won = false
                         self.credits -= self.bet
+                        self.background = Color.white
                     }
                     
                 }, label: {

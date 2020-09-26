@@ -10,6 +10,7 @@ import SwiftUI
 struct CardView: View {
     
     @Binding var symbol:String
+    @Binding var background:Color
     
     var body: some View {
         Image(symbol)
@@ -17,14 +18,14 @@ struct CardView: View {
         .resizable()
         .frame(width: 100.0, height: 100.0)
         .padding(10)
-        .background(Color.white.opacity(0.5))
+        .background(background.opacity(0.5))
         .cornerRadius(20)
-        .shadow(color: /*@START_MENU_TOKEN@*/Color.gray/*@END_MENU_TOKEN@*/, radius: 3)
+        .shadow(color: Color.gray, radius: 3)
     }
 }
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(symbol: Binding.constant("pizza"))
+        CardView(symbol: Binding.constant("pizza"), background: Binding.constant(Color.white))
     }
 }
